@@ -22,10 +22,23 @@ steps:
     docker pull mongo:latest
   displayName: Pull Docker image
 
-- bash: 
-    docker login registry.aquasec.com
-  displayName: Pull Docker image
+- task: Docker@2
+  inputs:
+    containerRegistry: 'RJ Aqua Reg'
+    command: 'login'
 
 - bash: |
     docker pull registry.aquasec.com/scanner6.5
   displayName: Login Aqua Reg
+
+- task: aquasecScanner@4
+  inputs:
+    image: 'mongo:latest'
+    scanType: 'local'
+    register: false
+    registry: false
+    hideBase: false
+    showNegligible: true
+    scanner: 'registry.aquasec.com/scanner:6.5'
+    connection: 'RJ Aqua Demo Env'
+    customFlags: '--layer-vulnerabilities'
