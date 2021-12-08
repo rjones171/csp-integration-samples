@@ -17,3 +17,15 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- bash: |
+    docker pull mongo:latest
+  displayName: Pull Docker image
+
+- bash: 
+    docker login registry.aquasec.com
+  displayName: Pull Docker image
+
+- bash: |
+    docker pull registry.aquasec.com/scanner6.5
+  displayName: Login Aqua Reg
